@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Lista de Empresas - Ciclo3</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <style>
+    a{
+      color:white;
+    }
+    a:hover {
+      color: black;
+      text-decoration:none;
+    }
+    .navbar-nav > li > a {
+      font-family: "Lato", Helvetica, Arial, sans-serif;
+    }
+    /* ===== Begin navbar ===== */
+    .navbar {
+      margin: 0;
+      background-color: #363940;
+      border: none;
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      -ms-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+    }
+    .navbar .container {
+      padding-left: 50px;
+      padding-right: 50px;
+    }
+
+
+    /* Navbar brand (logo) */
+    .navbar-brand {
+      background-repeat: no-repeat;
+      background-position: left center;
+      width: 150px;
+      height: auto;
+      padding: 24px 0;
+      text-indent: -99999px;
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 20px;
+      letter-spacing: 4px;
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      -ms-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+    }
+    .navbar-default .navbar-brand {
+      background-image: url(../img/logo.png);
+    }
+    .navbar-shrink .navbar-brand {
+      background-image: url(../img/logo.png);
+    }
+    .navbar-transparent .navbar-brand {
+      background-image: url(../img/logo.png);
+    }
+    .navbar-inverse .navbar-brand {
+      background-image: url(../img/logo.png);
+    }
+
+    /* Navbar links */
+    .navbar-nav > li > a {
+      padding: 24px 0;
+      margin-left: 25px;
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Navbar dropdown */
+    .dropdown-left {
+      left: 0 !important;
+      right: auto !important;
+    }
+    .dropdown-right {
+      right: 0 !important;
+      left: auto !important;
+    }
+    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+      background-color: transparent;
+    }
+    .navbar-default .dropdown-menu {
+      padding: 10px 0;
+    }
+    .dropdown-menu > li > a {
+      padding: 4px 20px;
+      text-transform: uppercase;
+    }
+    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-menu > li > a.active, .dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+      text-decoration: none;
+      background-color: transparent;
+    }
+
+    /* Navbar inverse dropdown */
+    .navbar-inverse .dropdown-menu {
+      padding: 10px 0;
+    }
+
+    /* Navbar fixed */
+    .navbar-fixed-top .container {
+      -webkit-transition: all 0.2s ease-in-out;
+      -moz-transition: all 0.2s ease-in-out;
+      -o-transition: all 0.2s ease-in-out;
+      -ms-transition: all 0.2s ease-in-out;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .navbar-shrink {
+      z-index: 9999;
+      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+      -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    }
+    .navbar-shrink .navbar-brand {
+      font-size: 20px;
+    }
+    .navbar-default.navbar-fixed-top.navbar-shrink .container {
+    }
+    .navbar-fixed-top.navbar-shrink .container {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+    .navbar-default.navbar-fixed-top.navbar-shrink .navbar-nav > li > a {
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+
+    /* Navbar transparent */
+    .navbar-transparent {
+      background-color: rgba(0, 0, 0, 0);
+    }
+    .navbar-fixed-top.navbar-transparent .container {
+      padding-top: 30px;
+      padding-bottom: 0;
+    }
+    .navbar-fixed-bottom.navbar-transparent .container {
+      padding-top: 0;
+      padding-bottom: 30px;
+    }
+    .navbar-transparent .navbar-nav > li > a {
+      color: #FFF;
+    }
+    .navbar-transparent .navbar-brand, .navbar-transparent .navbar-brand:focus {
+      color: #FFF;
+    }
+    /* ===== End navbar ===== */
+
+    .contenido{
+      position: relative;
+      top: 80px;
+    }
+
+    body{
+      background-color:lightgray;
+    }
+
+    /* ==== Tabla======*/
+    div.table-title {
+      display: block;
+      margin: auto;
+      max-width: 600px;
+      padding:5px;
+      width: 100%;
+    }
+
+    .table-title h3 {
+      color: #fafafa;
+      font-size: 30px;
+      font-weight: 400;
+      font-style:normal;
+      font-family: "Roboto", helvetica, arial, sans-serif;
+      text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+      text-transform:uppercase;
+    }
+
+
+    /*** Table Styles **/
+
+    .table-fill {
+      background: white;
+      border-radius:3px;
+      border-collapse: collapse;
+      height: 320px;
+      margin: auto;
+      max-width: 600px;
+      padding:5px;
+      width: 100%;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      animation: float 5s infinite;
+    }
+
+    th {
+      color:#D5DDE5;;
+      background:#1b1e24;
+      border-bottom:4px solid #9ea7af;
+      border-right: 1px solid #343a45;
+      font-size:23px;
+      font-weight: 100;
+      padding:24px;
+      text-align:left;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+      vertical-align:middle;
+    }
+
+    th:first-child {
+      border-top-left-radius:3px;
+    }
+
+    th:last-child {
+      border-top-right-radius:3px;
+      border-right:none;
+    }
+
+    tr {
+      border-top: 1px solid #C1C3D1;
+      border-bottom-: 1px solid #C1C3D1;
+      color:#666B85;
+      font-size:16px;
+      font-weight:normal;
+      text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+    }
+
+    tr:hover td {
+      background:#4E5066;
+      color:#FFFFFF;
+      border-top: 1px solid #22262e;
+    }
+
+    tr:first-child {
+      border-top:none;
+    }
+
+    tr:last-child {
+      border-bottom:none;
+    }
+
+    tr:nth-child(odd) td {
+      background:#EBEBEB;
+    }
+
+    tr:nth-child(odd):hover td {
+      background:#4E5066;
+    }
+
+    tr:last-child td:first-child {
+      border-bottom-left-radius:3px;
+    }
+
+    tr:last-child td:last-child {
+      border-bottom-right-radius:3px;
+    }
+
+    td {
+      background:#FFFFFF;
+      padding:20px;
+      text-align:left;
+      vertical-align:middle;
+      font-weight:300;
+      font-size:18px;
+      text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+      border-right: 1px solid #C1C3D1;
+    }
+
+    td:last-child {
+      border-right: 0px;
+    }
+
+    th.text-left {
+      text-align: left;
+    }
+
+    th.text-center {
+      text-align: center;
+    }
+
+    th.text-right {
+      text-align: right;
+    }
+
+    td.text-left {
+      text-align: left;
+    }
+
+    td.text-center {
+      text-align: center;
+    }
+
+    td.text-right {
+      text-align: right;
+    }
+
+    .nombUsuario{
+      font-family: 'Lucida Sans';
+    }
+  </style>
+</head>
+<body>
+
+<div th:insert="navbar :: navbar">  </div>
+
+<div class="contenido">
+  <div class="container">
+    
+    <img class="img-thumbnail rounded float-left" th:src="@{'/imgUs/' + ${image.image}}" style="max-width: 5%">
+    <h4 th:inline="text" class="text-right nombUsuario">Usuario actual: [[${#httpServletRequest.remoteUser}]]</h4>
+    <h1 class="titulo"> Lista de Empresas</h1>
+
+    <br>
+    <!--Filtrador-->
+    <div class="form-group row">
+      <label for="nombreFilt" class="col-sm-1 col-form-label">Filtrar por nombre:</label>
+      <div class="col-sm-5">
+        <input type="email" class="form-control" id="nombreFilt" placeholder="Imgresa el nombre de la empresa para filtrar">
+      </div>
+
+      <div class="row">
+        <div class="col-md-5">
+          <button class="btn btn-danger btn-lg active" role="button" aria-pressed="true" onclick="quitFilter()">Quitar filtro</button>
+          <div class="col-md-3">
+            <button class="btn btn-success btn-lg active" role="button" aria-pressed="true" onclick="getValueInput()">Filtrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p id="valueInput"></p>
+
+    <!--Dibujamos la tabla-->
+    <br><table class="table table-bordered">
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+      <th>Dirección</th>
+      <th>Telefono</th>
+      <th>NIT</th>
+      <th>Empleados</th>
+      <th>Movimientos</th>
+      <th>Editar</th>
+      <th>Eliminar</th>
+    </tr>
+
+    <!--Llenamos la tabla dibujada-->
+    <!--En nuestro controller, creamos en viewEmpresa un modelo con un atributo llamado emplist donde esta guardada la lista de todas las empresas-->
+    <tr th:each="enterprise : ${listEnterprise}">
+      <td th:text="${enterprise.id}"></td>
+      <td th:text="${enterprise.name}"></td>
+      <td th:text="${enterprise.address}"></td>
+      <td th:text="${enterprise.phone}"></td>
+      <td th:text="${enterprise.document}"></td>
+      <td><button type="button" class="btn btn-info"><a th:href="@{/api/enterprise/{id}/employees (id=${enterprise.id})}">Ver empleados</a></button></td>
+      <td><button type="button" class="btn btn-primary"><a th:href="@{/api/enterprise/{id}/movements (id=${enterprise.id})}">Ver movimientos</a></button></td>
+      <td><button type="button" class="btn btn-success"><a th:href="@{/api/editEnterprise/{id}(id=${enterprise.id})}">Editar</a></button></td>
+      <td><button type="button" class="btn btn-danger"><a th:href="@{/api/deleteEnterprise/{id}(id=${enterprise.id})}">Eliminar</a></button></td>
+    </tr>
+  </table>
+
+    <!-- vamos a crear un boton que sirva para agregar nuevas empresas -->
+    <button type="button" class="btn btn-info"><a th:href="@{/api/newEnterprise}">Agregar Nueva Empresa</a></button>
+    <br><br>
+    <button type="button" class="btn btn-primary"><a th:href="@{/api/employees}">Ver lista de Empleados</a></button>
+
+  </div>
+</div>
+
+<script th:inline="javascript">
+  const getValueInput = () =>{
+    let inputValue = document.getElementById("nombreFilt").value;
+
+    var url = document.location;
+
+    var frg = url.toString().split('api/');
+
+    var result = frg[0];
+
+    var link= result + 'api/enterpriseFilter/'+ inputValue;
+
+    var  link2= result + 'api/enterpriseFilter/';
+    if(link === link2){
+      window.location.replace(result + 'api/enterprises');
+    }else {
+      window.location.replace(link);
+    }
+  }
+
+  const quitFilter = () => {
+    var url = document.location;
+
+    var frg = url.toString().split('api/');
+
+    var result = frg[0];
+    window.location.replace(result + 'api/enterprises');
+  }
+
+  window.onload=function(){
+
+    var msg= [[${mensaje}]];
+    if (msg == "saveOK"){
+      Command : toastr["success"]("Empresa creada con éxito!")
+    }
+    else if (msg == "updateOK"){
+      Command : toastr["success"]("Empresa actualizada con éxito!")
+    }
+    else if (msg == "deleteOK"){
+      Command : toastr["error"]("Empresa eliminada con éxito!")
+    }
+    else if (msg == "deleteError"){
+      Command : toastr["error"]("Empresa no ha sido eliminada!")
+    }
+    else if (msg == "filterError"){
+      Command : toastr["error"]("Empresa no encontrada")
+    }
+    toastr.options={
+      "positionClass": "toast-top-right",
+      "showDuration":"300",
+      "showMethod":"fadeIn",
+      "hideMethod":"fadeOut",
+    }
+  }
+
+</script>
+
+</body>
+</html>

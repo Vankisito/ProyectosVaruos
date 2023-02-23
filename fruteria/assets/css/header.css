@@ -1,0 +1,44 @@
+.cabecera{
+    display: flex;
+    align-items: center;
+    background: #f9f9f9;
+    justify-content: space-between;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.menu-lista{
+    flex-direction: row;
+    display: flex;  
+}
+
+.menu-link{ 
+    margin-right: 1.25rem;
+    color: #808080;
+    text-decoration: none;
+}
+
+.menu-link:hover{
+    text-decoration: underline;
+}
+
+.menu-link.activo{
+    color: #333333;
+}
+
+@media screen and (max-width: 768px){
+    .cabecera{
+        padding: 1rem 1rem ;
+        justify-content: center;
+    }
+
+    .logo{
+        display: none;
+    }
+    .menu-lista{
+        font-size: 1.3rem;
+    }
+    .menu-link{
+        padding: 0 .5rem;
+    }
+}

@@ -1,0 +1,32 @@
+.sobre-nosotros{
+    padding: 2.5rem;
+    text-align: center;
+}
+
+.sobre-titulo{
+    color: #DA2B1F;
+    font-family: pacifico,cursive;
+    font-size: 3.1875rem;
+
+}
+
+.sobre-parrafo{
+    margin-top: 1.9rem;
+    color: #8c8888;
+    font-size: 1.75rem;
+    font-weight: 100;
+}
+
+@media screen and (max-width: 768px){
+
+    .sobre-nosotros{
+        padding: 2.5rem 1rem;
+    }
+
+    .sobre-titulo{
+        font-size: 2rem;
+    }
+    .sobre-parrafo{
+        font-size: 1.3;
+    }
+}
